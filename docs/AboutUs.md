@@ -17,7 +17,9 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](https://github.com/don-ko/)]
 
-* Role: Project Advisor
+* Role: Testing
+* Responsibilities: Ensure that the code is tested and that the tests are passing, and that the test code coverage is
+  high.
 
 ### Lim Rui Yuan
 
