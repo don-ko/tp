@@ -22,17 +22,17 @@ public abstract class Param extends Token {
 
     /**
      * A param represents a part of an inputPattern that comes after the tokens
-     * Each param takes in a segment of the form "-id value"
+     * Each param takes in a segment of the form "--id value"
      * Some params can occur several times, and the range of no of values
      * must be between minOccurences and maxOccurences
      *
-     * @param id the param id, and starts with -
+     * @param id the param id, and starts with --
      * @param minOccurences the min number of times this param should appear in an inputPattern
      * @param maxOccurences the max number of times this param should appear in an inputPattern
      */
     public Param(String id, int minOccurences, int maxOccurences) {
         super(id);
-        assert(id.charAt(0) == '-');
+        assert(id.startsWith("--"));
         assert(minOccurences <= maxOccurences);
 
         this.minOccurences = minOccurences;

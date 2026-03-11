@@ -1,5 +1,7 @@
 package seedu.address.logic.parser.inputpatterns;
 
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_EMAIL;
+
 import seedu.address.model.person.Email;
 
 /**
@@ -8,12 +10,12 @@ import seedu.address.model.person.Email;
 public class EmailParam extends Param {
 
     public EmailParam(int minOccurences, int maxOccurences) {
-        super("-email", minOccurences, maxOccurences);
+        super(PARAM_ID_EMAIL, minOccurences, maxOccurences);
     }
 
     @Override
     public String getPreview() {
-        return "-email <email>";
+        return PARAM_ID_EMAIL + " <email>";
     }
 
     @Override

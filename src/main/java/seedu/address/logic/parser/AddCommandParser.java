@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_PHONE;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +22,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+
+
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -54,14 +59,14 @@ public class AddCommandParser extends Parser<AddCommand> {
         Name name = new Name(nameString);
 
         Phone phone = null;
-        Param phoneParam = inputPattern.getParamWithId("-phone");
+        Param phoneParam = inputPattern.getParamWithId(PARAM_ID_PHONE);
         ArrayList<String> phoneValues = phoneParam.getValues();
         if (!phoneValues.isEmpty()) {
             phone = new Phone(phoneValues.get(0));
         }
 
         Email email = null;
-        Param emailParam = inputPattern.getParamWithId("-email");
+        Param emailParam = inputPattern.getParamWithId(PARAM_ID_EMAIL);
         ArrayList<String> emailValues = emailParam.getValues();
         if (!emailValues.isEmpty()) {
             email = new Email(emailValues.get(0));

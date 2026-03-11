@@ -1,6 +1,8 @@
 package seedu.address.logic.parser.inputpatterns;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_PHONE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +30,18 @@ class InputPatternTest {
         String email = "donk@gmail.com";
 
         String args = dummyName
-                + " -email " + email
-                + " -phone " + phoneNumber;
+                + " " + PARAM_ID_EMAIL + " " + email
+                + " " + PARAM_ID_PHONE + " " + phoneNumber;
 
         try {
             addPattern.assignSegmentsFromArgs(args);
             assertEquals(dummyName, addPattern.getTokenWithId("name").getAssignedSegment());
 
-            ArrayList<String> emailValues = addPattern.getParamWithId("-email").getValues();
+            ArrayList<String> emailValues = addPattern.getParamWithId(PARAM_ID_EMAIL).getValues();
             assertEquals(1, emailValues.size());
             assertEquals(email, emailValues.get(0));
 
-            ArrayList<String> phoneValues = addPattern.getParamWithId("-phone").getValues();
+            ArrayList<String> phoneValues = addPattern.getParamWithId(PARAM_ID_PHONE).getValues();
             assertEquals(1, phoneValues.size());
             assertEquals(phoneNumber, phoneValues.get(0));
         } catch (ParseException e) {
