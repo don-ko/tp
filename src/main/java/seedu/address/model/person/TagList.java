@@ -9,17 +9,25 @@ import seedu.address.model.tag.Tag;
  * Represents a Person's list of tag name-value pairs.
  */
 public class TagList {
-    public TreeMap<String, String> tags;
+    private final TreeMap<String, String> tags;
 
     public TagList() {
         this.tags = new TreeMap<>();
     }
 
+    /**
+     * Creates a new TagList object by deep copying the contents of another TagList object.
+     * @param other The TagList object to be referenced.
+     */
     public TagList(TagList other) {
         this.tags = new TreeMap<>();
         this.tags.putAll(other.tags);
     }
 
+    /**
+     * Creates a new TagList object from a variable number of tag strings.
+     * @param tagStrings Varargs argument of variable number of tag strings.
+     */
     public TagList(String... tagStrings) {
         this.tags = new TreeMap<>();
         for (String tagString : tagStrings) {
@@ -27,6 +35,10 @@ public class TagList {
         }
     }
 
+    /**
+     * Creates a new TagList object from a list of Tags.
+     * @param tags List of Tags to be put into the new TagList.
+     */
     public TagList(List<Tag> tags) {
         this.tags = new TreeMap<>();
         for (Tag tag : tags) {
@@ -50,6 +62,10 @@ public class TagList {
         return this.tags.containsKey(tagName);
     }
 
+    /**
+     * Returns a list of string representations of each tag stored in this TagList.
+     * @return List of strings corresponding to each tag.
+     */
     public List<String> viewTags() {
         return this.tags.entrySet().stream()
                 .map(entry -> entry.getKey() + ":" + entry.getValue()).toList();

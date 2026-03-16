@@ -1,29 +1,24 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CliSyntax.*;
+
+
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_TAG_ADD;
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_TAG_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_TAG_EDIT;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.TagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.inputpatterns.EmailParam;
 import seedu.address.logic.parser.inputpatterns.InputPattern;
 import seedu.address.logic.parser.inputpatterns.IntegerToken;
 import seedu.address.logic.parser.inputpatterns.Param;
-import seedu.address.logic.parser.inputpatterns.PhoneParam;
-import seedu.address.logic.parser.inputpatterns.StringToken;
 import seedu.address.logic.parser.inputpatterns.TagAddParam;
 import seedu.address.logic.parser.inputpatterns.TagDeleteParam;
 import seedu.address.logic.parser.inputpatterns.TagEditParam;
 import seedu.address.logic.parser.inputpatterns.Token;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.TagList;
 import seedu.address.model.tag.Tag;
 
 /**

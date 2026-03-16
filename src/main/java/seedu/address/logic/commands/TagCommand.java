@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_TAG_ADD;
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_TAG_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_TAG_EDIT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -38,6 +40,14 @@ public class TagCommand extends Command {
     private final List<Tag> editTags;
     private final List<Tag> deleteTags;
 
+    /**
+     * Creates a new TagCommand object.
+     *
+     * @param index Index object of the index of the profile whose tags should be edited.
+     * @param addTags List of {@code Tag}s to add.
+     * @param editTags List of {@code Tag}s to edit.
+     * @param deleteTags List of {@code Tag}s to delete.
+     */
     public TagCommand(Index index, List<Tag> addTags, List<Tag> editTags, List<Tag> deleteTags) {
         requireNonNull(index);
         requireNonNull(addTags);
@@ -61,8 +71,8 @@ public class TagCommand extends Command {
 
         Person person = lastShownList.get(index.getZeroBased());
         Person updatedPerson = new Person(person.getName(),
-                (person.hasPhone() ? person.getPhone() : null),
-                (person.hasEmail() ? person.getEmail() : null),
+                person.hasPhone() ? person.getPhone() : null,
+                person.hasEmail() ? person.getEmail() : null,
                 person.getTags());
 
         for (Tag tag : addTags) {

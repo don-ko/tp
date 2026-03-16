@@ -45,7 +45,7 @@ public class PersonUtil {
             sb.append("-email " + person.getEmail().value + " ");
         }
         person.getPrintableTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG + s + " ")
         );
         return sb.toString();
     }
