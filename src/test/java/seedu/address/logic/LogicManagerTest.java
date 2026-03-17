@@ -1,6 +1,8 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_OUT_OF_BOUNDS_PERSON_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -12,6 +14,7 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -68,6 +71,23 @@ public class LogicManagerTest {
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
+    public void execute_nukeCommand_dataDirectoryDeletedAndNotRecreated() throws Exception {
+        Path dataDirectory = temporaryFolder.resolve("data");
+        Path addressBookFile = dataDirectory.resolve("addressBook.json");
+        Files.createDirectories(dataDirectory);
+        Files.createFile(addressBookFile);
+
+        UserPrefs userPrefs = new UserPrefs();
+        userPrefs.setAddressBookFilePath(addressBookFile);
+        model.setUserPrefs(userPrefs);
+
+        CommandResult result = logic.execute("nuke");
+
+        assertTrue(result.isExit());
+        assertFalse(Files.exists(dataDirectory));
     }
 
     /*
