@@ -53,8 +53,14 @@ public class TagCommandParser extends Parser<TagCommand> {
      */
     @Override
     TagCommand parse(String args) throws ParseException {
-        InputPattern inputPattern = createInputPattern();
-        inputPattern.assignSegmentsFromArgs(args.strip());
+        InputPattern inputPattern;
+
+        try {
+            inputPattern = createInputPattern();
+            inputPattern.assignSegmentsFromArgs(args.strip());
+        } catch (ParseException e) {
+            throw new ParseException(e.getMessage() + "\nSomething wrong with your input format. TODO: more descriptive");
+        }
 
 
         Token indexToken = inputPattern.getTokenWithId("index");

@@ -19,7 +19,6 @@ public class TagListTest {
     private static final Tag tag1 = new Tag(tagString1);
     private static final Tag tag2 = new Tag(tagString2);
     private static final Tag tag3 = new Tag(tagString3);
-    private static final Tag tag4 = new Tag(tagString4);
 
     @Test
     public void equivalent_constructors() {
