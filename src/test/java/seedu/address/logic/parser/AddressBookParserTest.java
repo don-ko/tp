@@ -19,6 +19,7 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FilterCommand.FilterType;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NukeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -83,6 +84,12 @@ public class AddressBookParserTest {
         FilterCommand command = (FilterCommand) parser.parseCommand(
                 FilterCommand.COMMAND_WORD + " --name Alice");
         assertEquals(new FilterCommand(criteria), command);
+    }
+
+    @Test
+    public void parseCommand_nuke() throws Exception {
+        assertTrue(parser.parseCommand(NukeCommand.COMMAND_WORD) instanceof NukeCommand);
+        assertTrue(parser.parseCommand(NukeCommand.COMMAND_WORD + " now") instanceof NukeCommand);
     }
 
     @Test
