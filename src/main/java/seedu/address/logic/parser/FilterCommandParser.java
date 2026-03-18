@@ -11,7 +11,6 @@ import java.util.Map;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FilterCommand.FilterType;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.inputpatterns.ConstantToken;
 import seedu.address.logic.parser.inputpatterns.InputPattern;
 import seedu.address.logic.parser.inputpatterns.NameParam;
 import seedu.address.logic.parser.inputpatterns.Param;
@@ -31,9 +30,7 @@ public class FilterCommandParser extends Parser<FilterCommand> {
      */
     @Override
     InputPattern createInputPattern() {
-        ArrayList<Token> tokens = new ArrayList<>(List.of(
-                new ConstantToken("", "")
-        ));
+        ArrayList<Token> tokens = new ArrayList<>();
 
         ArrayList<Param> params = new ArrayList<>(List.of(
                 new NameParam(0, 100),
