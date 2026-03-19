@@ -28,7 +28,7 @@ public class AddCommand extends Command {
             + "John Doe "
             + PARAM_ID_PHONE + " 98765432 "
             + PARAM_ID_EMAIL + " johnd@example.com "
-            + PARAM_ID_TAG + "school:NUS";
+            + PARAM_ID_TAG + " school:NUS";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
