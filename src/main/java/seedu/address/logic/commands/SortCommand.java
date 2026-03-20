@@ -4,13 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.Objects;
-import java.util.Optional;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
+/**
+ * Sorts the current view by a specified field.
+ */
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
@@ -24,16 +25,38 @@ public class SortCommand extends Command {
          + "  " + COMMAND_WORD + " phone --desc --NUMBER\n"
          + "  " + COMMAND_WORD + " income --alpha";
 
+    /**
+     * Defines the possible fields to sort by and the sort order.
+     */
     public enum SortTargetType { NAME, PHONE, EMAIL, TAG }
+
+    /**
+     * Defines the possible sort orders.
+     */
     public enum SortOrder { ASC, DESC }
+
+    /**
+     * Defines the possible sort modes for string fields.
+     */
     public enum SortMode { NUMBER, ALPHA }
 
+    /**
+     * Encapsulates the parameters for sorting.
+     */
     public static class SortSpec {
         public final SortTargetType targetType;
         public final String tagName;
         public final SortOrder order;
         public final SortMode mode;
 
+        /**
+         * Constructs a SortSpec object.
+         *
+         * @param targetType The type of field to sort by (NAME, PHONE, EMAIL, or TAG).
+         * @param tagName The name of the tag to sort by if targetType is TAG; otherwise null.
+         * @param order The sort order (ASC or DESC).
+         * @param mode The sort mode (NUMBER or ALPHA).
+         */
         public SortSpec(SortTargetType targetType, String tagName, SortOrder order, SortMode mode) {
             this.targetType = targetType;
             this.tagName = tagName;
@@ -64,6 +87,11 @@ public class SortCommand extends Command {
 
     private final SortSpec spec;
 
+    /**
+     * Creates a SortCommand to sort by the specified field.
+     *
+     * @param spec The specification of how to sort, including target field, order, and mode.
+     */
     public SortCommand(SortSpec spec) {
         requireNonNull(spec);
         this.spec = spec;
