@@ -4,17 +4,45 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
-
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+ScamBook User Guide
+---
 
 <!-- * Table of Contents -->
 <page-nav-print />
 
+## Introduction
+
+### What is ScamBook?
+
+ScamBook is a **desktop contact management app** optimised for use via
+a Command Line Interface (CLI) while still having the benefits of
+a Graphical User Interface (GUI).
+
+### Who is ScamBook for?
+
+ScamBook is designed for **Singapore-based investment and financial scam
+callers** managing a high volume of victim contacts daily. If you are
+a scammer who:
+* is **tech-savvy** and prefer typing to clicking, and comfortable with
+a command line interfaces (CLI);
+* operates as a **solo caller** and need a private, single-user system to
+manage your contacts;
+* handles **hundreds to thousands of contacts** and need a system that can
+scale to your needs;
+* needs to manage and update contacts **on-the-go during live calls**;
+
+ScamBook is the app for you!
+
+<!-- Potentially include a table of problems solved, value proposition,
+etc. -->
+
 --------------------------------------------------------------------------------------------------------------------
 
+<!-- Quickstart appropriate for target users and fit-for-purpose -->
 ## Quick start
 
+<!-- Quickstart: Installation instructions -->
+### Installation
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
@@ -23,8 +51,11 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+
+<!-- Quickstart: Overview of UI -->
+### Overview
+A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -39,12 +70,15 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `exit` : Exits the app.
 
+<!-- Quickstart: Adding, editing, deleting, basic general workflow -->
+### Basic commands
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
+<!-- Disclaimer for command format, applicable to all commands -->
 <box type="info" seamless>
 
 **Notes about the command format:**<br>
@@ -66,6 +100,40 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
+
+<!--
+Command User guide format:
+
+### Command description (within 5 words) : `command`
+Short description of the command.
+
+Format: `command [parameters]`
+
+
+[Following sections are optional, include only if applicable (try to be minimal)]
+
+<box type="warning" seamless>
+Warning about the command, e.g. common mistakes, important notes, etc.
+</box>
+
+
+Expected output or behaviour if the command is executed successfully. Use
+screenshots (properly cropped) only if necessary, e.g. if the output is too
+long or contains formatting that is hard to represent in text.
+
+
+Examples: [DO NOT include unrealistic examples (use realistic params.) and DO
+NOT include unlikely user input (e.g., names with backslaches) if already
+handled by the app.]
+* `Expected input`
+  Explanation of output or behaviour if needed
+
+
+<box type="tip" seamless>
+Tips about the command, e.g. how to use it more effectively, etc.
+</box>
+
+-->
 
 ### Viewing help : `help`
 
@@ -173,16 +241,34 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
+<!-- Upcoming features -->
+
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## Tutorials
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+<!-- Tutorial: Working with tags, general workflow -->
+
+<!-- Tutorial: Data transfer
+
+How do I transfer my data to another Computer?<br>
+
+Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+-->
+
+<!-- Tutorial: Power user features, shortcuts, efficient usage (only if
+features implemented) -->
+
+## FAQ
+**Q**: I have a question that is not answered here. Where can I ask it?<br>
+**A**: You can ask your question by creating a new issue in the [ScamBook
+repository](https://github.com/AY2526S2-CS2103T-T16-1/tp/issues).
+
+<!-- Known issues, e.g. bugs, limitations, etc. Only add if affects a normal user experience. Should be empty.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -191,9 +277,13 @@ _Details coming soon ..._
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
+-->
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
+<!-- A summary of all commands. Should be of same/similar format as help
+command output -->
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
