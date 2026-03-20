@@ -313,12 +313,15 @@ repository](https://github.com/AY2526S2-CS2103T-T16-1/tp/issues).
 <!-- A summary of all commands. Should be of same/similar format as help
 command output -->
 
-Action     | Format, Examples
+Command   | Parameters
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
+**`add`**    | `NAME [--phone PHONE] [--email EMAIL] [--tag NAME:VALUE]...`<br> e.g., `add John Doe --phone 98765432 --email jognd@example.com --tag school:NUS`
+**`tag`**    | `INDEX [--add NAME:VALUE]... [--edit NAME:VALUE]... [--delete TAGNAME]...`<br> e.g., `tag 1 --add school:NUS --edit salary:10000 --delete age`
+**`edit`**   | `INDEX [--name NAME] [--phone PHONE_NUMBER] [--email EMAIL]`<br> e.g.,`edit 1 --name Jane Doe --phone 91234567 --email newemail@example.com`
+**`filter`** | `[--name NAME]... [--phone PHONE]`<br> e.g., `filter --name John --phone 98765432`
+**`list`**   | List all contacts
+**`delete`** | `INDEX`<br> e.g., `delete 1`
+**`clear`**  | Delete all contacts
+**`nuke`**   | Delete this app and all locally stored data
+**`help`**   | Show this help message
+**`exit`**   | Exit the application
