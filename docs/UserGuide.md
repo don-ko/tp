@@ -173,6 +173,36 @@ Examples:
 
 
 
+### Editing a person : `edit`
+
+Edits an existing person in the ScamBook.
+
+Format: `edit INDEX [--name NAME] [--phone PHONE] [--email EMAIL]`
+
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be overwritten by the input values.
+
+Examples:
+* `edit 1 --phone 91234567 --email johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 --name Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
+
+
+### Deleting a person : `delete`
+
+Deletes the specified person from the ScamBook.
+
+Format: `delete INDEX`
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd person in the ScamBook.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+
 ### Tagging a person : `tag`
 
 <!-- TODO: add visuals -->
@@ -201,28 +231,13 @@ Examples:
 * `tag 1 --add school:NUS --edit salary:10000 --delete age` Adds a tag with name `school` and value `NUS`, edits an existing tag with name `salary` to contain `10000` and deletes an existing tag with name `age` from the first person.
 
 
-### Editing a person : `edit`
-
-Edits an existing person in the ScamBook.
-
-Format: `edit INDEX [--name NAME] [--phone PHONE] [--email EMAIL]`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be overwritten by the input values.
-
-Examples:
-* `edit 1 --phone 91234567 --email johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 --name Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
-
-
 ### Filtering the list of persons : `filter`
 
 Filters the list of persons in the ScamBook to show only those that match the specified parameters.
 
 If multiple parameters of the same type are specified, only persons that match all the specified parameters will be shown. If multiple parameters of different types are specified, persons that match at least one of the specified parameters will be shown.
 
-Format: `filter [--name NAME]... [--phone PHONE]...`
+Format: `filter [--name NAME]... [--phone PHONE] [--email EMAIL] [--tag NAME:VALUE]...`
 
 - `filter --name John --phone 98765432`
   Shows all persons whose name contains `John` and phone number is `98765432`.
@@ -274,19 +289,6 @@ Examples:
 * `target 3` marks the third person as a potential target.
 * `clearstatus 1` clears the first person of any indicated status.
 
-### Deleting a person : `delete`
-
-Deletes the specified person from the ScamBook.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the ScamBook.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 
 ### Listing all persons : `list`
@@ -301,13 +303,6 @@ Format: `list`
 Clears all entries from the ScamBook.
 
 Format: `clear`
-
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
 
 
 ### Deleting the app and all data: `nuke`
@@ -329,6 +324,14 @@ application, you can also click on **Copy URL** to access the user guide.
 ![help message](images/helpMessage.png)
 
 Format: `help`
+
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
 
 
 

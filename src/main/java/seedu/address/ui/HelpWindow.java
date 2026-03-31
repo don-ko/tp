@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -9,6 +10,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+import seedu.address.commons.core.CommandInfo;
+import seedu.address.commons.core.CommandRegistry;
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -18,33 +21,7 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay2526s2-cs2103t-t16-1.github.io/tp/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
-    public static final String HELP_TEXT = """
-        ScamBook
-
-        Usage: <COMMAND> <PARAMETERS>
-
-        Commands:
-          add           NAME [--phone PHONE] [--email EMAIL] [--tag NAME:VALUE]...
-          tag           INDEX [--add NAME:VALUE]... [--edit NAME:VALUE]... [--delete TAGNAME]...
-          edit          INDEX [--name NAME] [--phone PHONE] [--email EMAIL]...
-          filter        [--name NAME]... [--phone PHONE]...
-          sort          [FIELD] [--asc|--desc] [--number|--alpha]
-          clearstatus   INDEX
-          target        INDEX
-          scam          INDEX
-          ignore        INDEX
-          delete        INDEX
-          list
-          clear
-          exit
-          nuke
-          help
-
-        Notes:
-          Parameters in UPPER_CASE are user-supplied values.
-          Parameters in [brackets] are optional.
-          Parameters with ... can be repeated multiple times.
-        """;
+    public static final String HELP_TEXT = buildHelpText();
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -130,5 +107,44 @@ public class HelpWindow extends UiPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
+    }
+
+    /**
+     * Builds the help text displaying information about how to use the application's commands.
+     * @return help text to be shown in the help window
+     */
+    private static String buildHelpText() {
+        int nameColumnWidth = CommandRegistry.getCommands().keySet().stream()
+                .mapToInt(String::length)
+                .max()
+                .orElse(0) + 3; // padding between command name and description
+        String commandIndentStr = " ".repeat(2);
+        String exampleIndentStr = " ".repeat(4);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("ScamBook\n\n");
+        sb.append("Usage: <COMMAND> <PARAMETERS>\n\n");
+        sb.append("Commands:\n");
+
+        for (Map.Entry<String, CommandInfo> mapElement : CommandRegistry.getCommands().entrySet()) {
+            String commandName = mapElement.getKey();
+            CommandInfo commandInfo = mapElement.getValue();
+            sb.append(String.format("%s%-" + nameColumnWidth + "s%s%n",
+                    commandIndentStr, commandName, commandInfo.getDescription()));
+            commandInfo.getExample().ifPresent(example ->
+                    sb.append(String.format("%s%" + nameColumnWidth + "se.g. %s%n",
+                            exampleIndentStr, "", example))
+            );
+        }
+
+        // Notes about how to read the help text
+        sb.append("""
+
+            Notes:
+              Parameters in UPPER_CASE are user-supplied values.
+              Parameters in [brackets] are optional.
+              Parameters with ... can be repeated multiple times.
+            """);
+        return sb.toString();
     }
 }
