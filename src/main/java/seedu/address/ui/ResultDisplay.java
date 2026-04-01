@@ -5,6 +5,10 @@ import static java.util.Objects.requireNonNull;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.CommandInfo;
+import seedu.address.commons.core.CommandRegistry;
+
+import java.util.Optional;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -25,4 +29,25 @@ public class ResultDisplay extends UiPart<Region> {
         resultDisplay.setText(feedbackToUser);
     }
 
+    public void setFormatTooltipFromPartialCommand(String partialCommand) {
+        String[] segments = partialCommand.split(" ");
+
+        if (segments.length == 0) {
+            return;
+        }
+
+        String commandWord = partialCommand.split(" ")[0];
+
+        Optional<CommandInfo> commandInfo = CommandRegistry.getCommandInfo(commandWord);
+
+        if (commandInfo.isEmpty()) {
+            setFeedbackToUser("Warning: " + commandWord + " is not a valid command!");
+        }
+        else {
+            String line1 = "Format:";
+            String line2 = commandWord + " " + commandInfo.get().getDescription();
+            setFeedbackToUser(line1 + "\n" + line2);
+        }
+
+    }
 }
