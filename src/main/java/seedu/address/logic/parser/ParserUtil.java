@@ -46,7 +46,7 @@ public class ParserUtil {
         requireNonNull(name);
         String trimmedName = name.trim();
         try {
-            Name.isValidName(trimmedName);
+            Name.validateName(trimmedName);
         } catch (IllegalValueException e) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -63,7 +63,7 @@ public class ParserUtil {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         try {
-            Phone.isValidPhone(trimmedPhone);
+            Phone.validatePhone(trimmedPhone);
         } catch (IllegalValueException e) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
@@ -95,7 +95,7 @@ public class ParserUtil {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         try {
-            Email.isValidEmail(trimmedEmail);
+            Email.validateEmail(trimmedEmail);
         } catch (IllegalValueException e) {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
@@ -112,12 +112,12 @@ public class ParserUtil {
         requireNonNull(tag);
 
         try {
-            Tag.isValidTagString(tag);
+            Tag.validateTagString(tag);
             String tagName = Tag.getNameFromRaw(tag);
             String tagValue = Tag.getValueFromRaw(tag);
 
-            Tag.isValidTagName(tagName);
-            Tag.isValidTagValue(tagValue);
+            Tag.validateTagName(tagName);
+            Tag.validateTagValue(tagValue);
 
             return new Tag(tag);
         } catch (IllegalValueException e) {

@@ -21,7 +21,7 @@ public class NameParam extends Param {
 
     @Override
     boolean valueMatches(String value) throws IllegalValueException {
-        return Name.isValidName(value);
+        return Name.validateName(value);
     }
 }
 

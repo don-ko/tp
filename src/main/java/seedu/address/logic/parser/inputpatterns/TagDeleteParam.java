@@ -20,6 +20,6 @@ public class TagDeleteParam extends Param {
 
     @Override
     boolean valueMatches(String value) throws IllegalValueException {
-        return Tag.deleteNameNoDelimiter(value);
+        return Tag.validateDeleteNameNoDelimiter(value);
     }
 }

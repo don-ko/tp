@@ -59,7 +59,7 @@ public class AddCommandParser extends Parser<AddCommand> {
         Token nameToken = inputPattern.getTokenWithId("name");
         String nameString = nameToken.getAssignedSegment();
         try {
-            Name.isValidName(nameString);
+            Name.validateName(nameString);
         } catch (IllegalValueException e) {
             throw new ParseException(e.getMessage());
         }
