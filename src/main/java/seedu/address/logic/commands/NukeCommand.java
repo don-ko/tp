@@ -7,11 +7,12 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Comparator;
-import java.util.stream.Stream;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 /**
  * Deletes local data artifacts and exits the program.
@@ -34,6 +35,8 @@ public class NukeCommand extends Command {
             deleteDataDirectory(model.getAddressBookFilePath());
             deleteJar();
         } catch (IOException e) {
+            Logger logger = LogsCenter.getLogger(ModelManager.class);
+            logger.warning(String.format(MESSAGE_FAILURE, e.getMessage()));
             throw new CommandException(String.format(MESSAGE_FAILURE, e.getMessage()), e);
         }
 
@@ -41,17 +44,14 @@ public class NukeCommand extends Command {
     }
 
     private void deleteDataDirectory(Path addressBookFilePath) throws IOException {
-        if (addressBookFilePath == null) {
-            return;
-        }
+        requireNonNull(addressBookFilePath);
 
+        Files.delete(addressBookFilePath);
         Path parent = addressBookFilePath.getParent();
         Path dataDirectory = parent.toAbsolutePath().normalize();
-        if (!Files.exists(dataDirectory)) {
-            return;
+        if (Files.exists(dataDirectory) && Files.list(dataDirectory).findAny().isEmpty()) {
+            Files.delete(dataDirectory);
         }
-
-        deleteRecursively(dataDirectory);
     }
 
     private void deleteJar() throws IOException {
@@ -68,19 +68,6 @@ public class NukeCommand extends Command {
             return Paths.get(getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
         } catch (URISyntaxException e) {
             return null;
-        }
-    }
-
-    private void deleteRecursively(Path directory) throws IOException {
-        try (Stream<Path> walk = Files.walk(directory)) {
-            walk.sorted(Comparator.reverseOrder())
-                    .forEach(path -> {
-                        try {
-                            Files.delete(path);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
         }
     }
 }
