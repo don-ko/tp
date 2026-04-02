@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.parser.CliSyntax.PARAM_ID_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PARAM_ID_NAME;
 import static seedu.address.logic.parser.CliSyntax.PARAM_ID_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PARAM_ID_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PARAM_ID_TAG;
 
 import java.util.ArrayList;
@@ -18,13 +19,14 @@ import seedu.address.logic.parser.inputpatterns.InputPattern;
 import seedu.address.logic.parser.inputpatterns.NameParam;
 import seedu.address.logic.parser.inputpatterns.Param;
 import seedu.address.logic.parser.inputpatterns.PhoneParam;
+import seedu.address.logic.parser.inputpatterns.StatusParam;
 import seedu.address.logic.parser.inputpatterns.TagParam;
 import seedu.address.logic.parser.inputpatterns.Token;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new FilterCommand object.
- * Supports filtering by name and phone parameters.
+ * Supports filtering by name, phone, email, status, and tag parameters.
  */
 public class FilterCommandParser extends Parser<FilterCommand> {
 
@@ -41,6 +43,7 @@ public class FilterCommandParser extends Parser<FilterCommand> {
                 new NameParam(0, 100),
                 new PhoneParam(0, 100),
                 new EmailParam(0, 100),
+                new StatusParam(0, 100),
                 new TagParam(0, 100)
         ));
 
@@ -75,6 +78,12 @@ public class FilterCommandParser extends Parser<FilterCommand> {
         List<String> emailFilter = emailParam.getValues();
         if (!emailFilter.isEmpty()) {
             filterCriterion.put(FilterType.EMAIL, emailFilter);
+        }
+
+        Param statusParam = inputPattern.getParamWithId(PARAM_ID_STATUS);
+        List<String> statusFilter = statusParam.getValues();
+        if (!statusFilter.isEmpty()) {
+            filterCriterion.put(FilterType.STATUS, statusFilter);
         }
 
         Param tagParam = inputPattern.getParamWithId(PARAM_ID_TAG);
