@@ -107,9 +107,7 @@ public class SortCommand extends Command {
         Comparator<Person> comparator = buildComparator(spec);
 
         model.updateSortedPersonList(comparator);
-        if (!model.isFilteredViewActive()) {
-            model.sortMasterPersonList(comparator);
-        }
+
         // Scroll to and select first person in list
         if (model.getFilteredPersonList().isEmpty()) {
             model.setSelectedPerson(null);
