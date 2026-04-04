@@ -161,6 +161,13 @@ Tips about the command, e.g. how to use it more effectively, etc.
 
 ## Commands
 
+### Viewing command history
+
+Similar to the command line interface of a terminal, you can use the up and down arrow keys to view your command history. This allows you to easily reuse or modify previous commands without having to retype them.
+
+
+<br>
+
 ### Adding a person: `add`
 
 Adds a person to the ScamBook.
