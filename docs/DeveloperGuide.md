@@ -227,7 +227,47 @@ How the sort command works:
     * Pros: Original insertion order is preserved and can be restored with `list` command.
     * Cons: Sort order does not persist across sessions.
 
+### Help Window
 
+The help text displayed in the help window is generated dynamically using `CommandRegistry`, which serves as
+a central registry of all commands supported by the application. Each command is registered as a `CommandInfo`
+object, which holds the command's name, description, and an optional example string.
+
+#### Implementation
+
+`CommandRegistry` stores commands in a `LinkedHashMap`, preserving insertion order so that commands appear
+in the help text in a consistent, developer-defined sequence. It is a non-instantiable utility class accessed
+statically, initialized once via a `static` block at class load time.
+
+`CommandInfo` wraps three fields:
+* `name` — the command word (e.g. `add`, `delete`)
+* `description` — the expected argument format (e.g. `INDEX [--name NAME]...`)
+* `example` — an optional usage example shown below the description
+
+When the help window is opened, `HelpWindow#buildHelpText()` iterates over `CommandRegistry#getCommands()`
+and formats each entry into a fixed-width table, aligning descriptions by padding command names to the
+width of the longest registered command. Examples, if present, are indented and prefixed with `e.g.`.
+
+This design means that adding a new command to the registry automatically propagates it to the help window
+without any changes to `HelpWindow` itself.
+
+`CommandRegistry` also supports the command tooltip feature — when a user types a partial command in the
+command box, `CommandRegistry#getCommandInfo(commandName)` is called to retrieve the corresponding
+`CommandInfo` and display its description as a tooltip.
+
+<puml src="diagrams/HelpClassDiagram.puml" width="280" />
+
+#### Design considerations
+
+**Aspect: How commands are registered:**
+
+* **Current choice:** Commands are registered statically in `CommandRegistry` via a `static` block.
+    * Pros: Simple, centralized, and ordered. Easy to see all supported commands at a glance.
+    * Cons: Adding a new command requires manually updating `CommandRegistry` in addition to implementing the command itself.
+
+* **Alternative:** Each command self-registers by calling `CommandRegistry.register()` in its own static block.
+    * Pros: Keeps registration co-located with the command implementation.
+    * Cons: Registration order becomes non-deterministic, and commands that are never referenced may not register at all.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
