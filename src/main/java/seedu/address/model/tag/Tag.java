@@ -101,7 +101,7 @@ public class Tag {
         return tag.split(TAG_DELIMITER)[1].trim();
     }
 
-    
+
     /**
      * Checks if a given string contains at most {@code maxLength} number of characters.
      *
