@@ -466,7 +466,49 @@ Please follow the setup instructions in the [user guide](UserGuide.html#installa
 
 ## **Appendix: Effort**
 
+ScamBook is a moderate-to-high effort brownfield project adapted from the Address Book 3 (AB3) codebase. AB3
+operates within the domain of general contact management, which our project redefines for a much more specific and
+workflow use case of managing scam victim profiles.
 
+ScamBook improves upon AB3 mainly through providing data and command flexibility, whilst preserving intuitive and
+efficient user interactions for the specialised target user profile. AB3 works with a mostly fixed contact schema, 
+whereas ScamBook allows a much more flexible data model that supports arbitrary sets of user-defined tag name-value
+pairs, an additional status state unique to the project domain (`scam`, `ignore`, `target`), and more expressive
+commands for view manipulation such as `filter`, `sort`, and `target`.
+
+For these features, validation and parsing, storage, and UI behaviors had to be redesigned so that the data model
+remained consistent across the entire system. Further, certain more complex features and interactions required careful
+planning and design to ensure they worked intuitively and efficiently for the use case. For instance:
+
+* **Filtering by multiple criterion**: How to combine multiple parameter filters (e.g., `--tag job:manager`
+  and `--status scam`) in a way that is intuitive for users and does not lead to unexpected results.
+* **Sorting by custom tags**: How to allow users to sort by arbitrary user-defined tags, which may have different value
+  types (e.g., numeric vs. alphabetic), and how to handle missing values for those tags.
+* **Interaction between filter and other commands**: How do other commands such as `tag`, `edit` index the view after a
+  filter is applied, and whether the filter should be reset or preserved after certain commands (e.g., `add` should
+  reset the filter to show the newly added contact if it does not satisfy the filter, while `edit` should preserve the
+  filter to allow users to continue working with the current view).
+
+The main challenge was preserving AB3's reliability and simplicity while expanding the command language significantly.
+This motivated the `InputPattern` parsing framework and command-flag style inputs to make commands more expressive.
+However, this also increased the amount of edge cases to handle, especially for optional repeated parameters and tags
+with both names and values.
+
+Another challenge was ensuring that the data model still felt natural in a CLI-first product:
+users can add arbitrary tags, update statuses with commands such as `scam`, `ignore`, and `clearstatus`, and then
+immediately manipulate the current view with `filter`, `sort`, and `list` without losing usability.
+
+A significant amount of effort, was saved through reuse of the AB3 codebase. The base architecture, JavaFX structure,
+storage flow, and some of the testing and infrastructure scaffolding came from AB3, which reduced the cost of setting
+up the brownfield project and to focus on ScamBook-specific changes. Additionally, we reused and adapted the
+`InputPattern` system from Rui Yuan's iP implementation, instead of building a command-pattern parser from scratch for
+the tP. Even with this reuse, substantial work was required to integrate them into ScamBook's domain and command set,
+ensuring that they worked well with the existing architecture and UI, and fixing various bugs and edge cases that arose
+from the more expressive command patterns.
+
+Overall, ScamBook's main achievement was turning AB3's fixed-field contact manager into a much more expressive and
+focused CLI application for the target user profile without compromising the intuitiveness and maintainability of the
+application and codebase.
 
 <br>
 
