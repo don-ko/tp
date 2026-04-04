@@ -45,23 +45,23 @@ public class TagTest {
     public void constructor_validInputs_success() {
         // alphanumeric name and value
         Tag tag = new Tag("job:engineer");
-        assertEquals("job", tag.tagName);
-        assertEquals("engineer", tag.tagValue);
+        assertEquals("job", tag.getTagName());
+        assertEquals("engineer", tag.getTagValue());
 
         // name and value with spaces
         Tag tagWithSpaces = new Tag("job title:investment banker");
-        assertEquals("job title", tagWithSpaces.tagName);
-        assertEquals("investment banker", tagWithSpaces.tagValue);
+        assertEquals("job title", tagWithSpaces.getTagName());
+        assertEquals("investment banker", tagWithSpaces.getTagValue());
 
         // value with special characters
         Tag tagWithSpecial = new Tag("income:$200,000");
-        assertEquals("income", tagWithSpecial.tagName);
-        assertEquals("$200,000", tagWithSpecial.tagValue);
+        assertEquals("income", tagWithSpecial.getTagName());
+        assertEquals("$200,000", tagWithSpecial.getTagValue());
 
         // leading and trailing whitespace
         Tag tagWithWhitespace = new Tag("here is a tab\t:   and many spaces");
-        assertEquals("here is a tab", tagWithWhitespace.tagName);
-        assertEquals("and many spaces", tagWithWhitespace.tagValue);
+        assertEquals("here is a tab", tagWithWhitespace.getTagName());
+        assertEquals("and many spaces", tagWithWhitespace.getTagValue());
     }
 
     public void helperAssertThrows(Executable executable, String expectedMessage) {

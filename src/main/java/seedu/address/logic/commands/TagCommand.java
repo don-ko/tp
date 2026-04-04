@@ -58,6 +58,7 @@ public class TagCommand extends Command {
         requireNonNull(addTags);
         requireNonNull(editTags);
         requireNonNull(deleteTags);
+        // defensive coding
 
         this.index = index;
         this.addTags = addTags;
@@ -85,7 +86,7 @@ public class TagCommand extends Command {
         for (Tag tag : addTags) {
             assert(Tag.isValidTagPair(tag));
 
-            if (updatedPerson.getTags().containsTagName(tag.tagName)) {
+            if (updatedPerson.getTags().containsTagName(tag.getTagName())) {
                 throw new CommandException(ADD_TAG_ALREADY_EXISTS);
             }
             updatedPerson.getTags().addTag(tag);
@@ -94,7 +95,7 @@ public class TagCommand extends Command {
         for (Tag tag : editTags) {
             assert(Tag.isValidTagPair(tag));
 
-            if (!updatedPerson.getTags().containsTagName(tag.tagName)) {
+            if (!updatedPerson.getTags().containsTagName(tag.getTagName())) {
                 throw new CommandException(EDIT_TAG_NAME_DOES_NOT_EXIST);
             }
             updatedPerson.getTags().editTag(tag);
@@ -103,7 +104,7 @@ public class TagCommand extends Command {
         for (Tag tag : deleteTags) {
             assert(Tag.isValidTagPair(tag));
 
-            if (!updatedPerson.getTags().containsTagName(tag.tagName)) {
+            if (!updatedPerson.getTags().containsTagName(tag.getTagName())) {
                 throw new CommandException(DELETE_TAG_NAME_DOES_NOT_EXIST);
             }
             updatedPerson.getTags().deleteTag(tag);
