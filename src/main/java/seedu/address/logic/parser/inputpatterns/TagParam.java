@@ -19,11 +19,11 @@ public class TagParam extends Param {
     }
 
     @Override
-    boolean valueMatches(String value) throws IllegalValueException {
+    public boolean valueMatches(String value) throws IllegalValueException {
         if (value.contains(Tag.TAG_DELIMITER)) {
-            return Tag.validateTagPair(value);
+            return Tag.isValidTagPair(value);
         } else {
-            return Tag.validateTagName(value); // Tag value not provided
+            return Tag.isValidTagName(value); // Tag value not provided
         }
     }
 }

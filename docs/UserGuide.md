@@ -1,7 +1,7 @@
 ---
   layout: default.md
-    title: "User Guide"
-    pageNav: 3
+  title: "User Guide"
+  pageNav: 3
 ---
 
 ScamBook User Guide
@@ -109,10 +109,12 @@ Refer to the [Command List](#commands) below for details of each command, or the
     * For example, the delete command has the format `delete INDEX`. If we type `delete 4`, ScamBook will delete David Li's entry in the below example:
       ![DeleteExample.png](images/DeleteExample.png)
 
+<br>
+
 * Parameters with `…`​ after them can be used multiple times (including zero times).<br>
   e.g. `[--tag NAME:VALUE]…​` can be used as ` ` (i.e. 0 times), `--tag school:NUS`, `--tag school:NUS --tag salary:10000` etc.
     * For each parameter that can be used multiple times, each command should contain up to 100 of such parameters.
-    * In the above command of `[--tag NAME:VALUE]…​`, the command should have up to 100 occurrences of `--tag`. Above this, the behaviour is undefined.
+    * In the above example of `[--tag NAME:VALUE]…​`, the command should have up to 100 occurrences of `--tag`. Above this, the behaviour is undefined.
 
 * Mandatory parameters must come before optional parameters.<br>
   e.g. if the command specifies `NAME [--phone PHONE]`, `--phone 88091246 John` is not acceptable.
@@ -160,6 +162,13 @@ Tips about the command, e.g. how to use it more effectively, etc.
 
 
 ## Commands
+
+### Viewing command history
+
+Similar to the command line interface of a terminal, you can use the up and down arrow keys to view your command history. This allows you to easily reuse or modify previous commands without having to retype them.
+
+
+<br>
 
 ### Adding a person: `add`
 
@@ -336,6 +345,7 @@ Examples:
 * `scam 3` marks the third person to have been scammed.
 * `ignore 4` marks the fourth person to be ignored (e.g. if you think the fourth person is unlikely to be a victim and you should not pursue this further).
 
+<br>
 
 ### Listing all persons : `list`
 
@@ -343,6 +353,7 @@ Shows a list of ALL persons in the ScamBook. This command can be used after `sor
 
 Format: `list`
 
+<br>
 
 ### Clearing all persons : `clear`
 
@@ -387,6 +398,9 @@ Exits the program.
 
 Format: `exit`
 
+
+--------------------------------------------------------------------
+
 ### Constraints on input values
 
 #### Name Constraints
@@ -411,6 +425,8 @@ Emails should be of the format `local-part@domain` and adhere to the following c
 
 <br>
 
+---------------------------------------------------
+
 ### Saving the data
 
 ScamBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -429,7 +445,7 @@ Furthermore, certain edits can cause the ScamBook to behave in unexpected ways (
 </box>
 
 
-
+----------------------------------------------------------------------
 
 ## FAQ
 
