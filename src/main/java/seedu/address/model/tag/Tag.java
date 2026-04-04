@@ -41,20 +41,6 @@ public class Tag {
     private final String tagValue;
 
     /**
-     * Returns the tag name of this tag.
-     */
-    public String getTagName() {
-        return tagName;
-    }
-
-    /**
-     * Returns the tag value of this tag.
-     */
-    public String getTagValue() {
-        return tagValue;
-    }
-
-    /**
      * Constructs a {@code Tag}.
      *
      * @param tagString A valid tag string, with name, exactly one delimiter and value.
@@ -80,6 +66,22 @@ public class Tag {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
+
+
+    /**
+     * Returns the tag name of this tag.
+     */
+    public String getTagName() {
+        return tagName;
+    }
+
+    /**
+     * Returns the tag value of this tag.
+     */
+    public String getTagValue() {
+        return tagValue;
+    }
+
 
     /**
      * Retrieves tag name from raw string representing the tag.
