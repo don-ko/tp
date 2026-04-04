@@ -22,7 +22,7 @@ ScamBook is a **desktop contact management app** optimised for use via a Command
 
 ScamBook is designed for **Singapore-based investment and financial scam callers** managing a high volume of victim contacts daily. If you are a scammer who:
 * is **tech-savvy** and prefer typing to clicking, and comfortable with
-  a command line interfaces (CLI);
+  command line interfaces (CLI);
 * operates as a **solo caller** and need a private, single-user system to
   manage your contacts;
 * handles **hundreds to thousands of contacts** and need a system that can
@@ -30,9 +30,6 @@ ScamBook is designed for **Singapore-based investment and financial scam callers
 * needs to manage and update contacts **on-the-go during live calls**;
 
 ScamBook is the app for you!
-
-<!-- TODO: Potentially include a table of problems solved, value
-proposition, etc. -->
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -44,7 +41,6 @@ proposition, etc. -->
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version found
    [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
-   <!-- TODO: Add detailed checking/installation instructions for JDK -->
 
 1. Download the latest `.jar` file from
    [here](https://github.com/AY2526S2-CS2103T-T16-1/tp/releases).
@@ -53,13 +49,13 @@ proposition, etc. -->
    your ScamBook.
 
 1. Double-click on the `.jar` file to run the application. If the application does not launch,
-refer to [FAQ](#Troubleshooting) for alternate ways to launch the application.
+refer to [troubleshooting](#troubleshooting) for alternate ways to launch the application.
 
 <!-- Quickstart: Overview of UI -->
 ### Overview
 A GUI similar to the below should appear in a few seconds. The app contains some sample data for you to use.<br>
 
-![Ui](images/Ui.png) <!-- TODO: annotated screenshot of the UI -->
+![Ui](images/Ui.png) 
 <small>*<center>Image credits for status icons: Downloaded from https://emoji.aranja.com/.</center>*</small>
 
 The top part of the application is the contact list - you can view contacts there.
@@ -68,13 +64,11 @@ The box at the bottom that reads "Enter command here..." is where you enter comm
 
 ### Entering a Command
 
-![AddExample1.png](images/AddExample1.png)
-
-Our sample data contains six people. This example will show how to add a 7th contact.
+Suppose our contact list has 6 people in it. This example will show how to add a 7th contact.
 
 We can use the `add` command to create a new contact. In the box at the bottom, type `add`.
 
-![AddExample2.png](images/AddExample2.png)
+![AddExample2.png](images/AddExample1.png)
 
 Upon typing `add`, the format for the rest of the command will appear.
 The command's format is `add NAME [--phone PHONE] [--email EMAIL] [--tag NAME:VALUE]...`.
@@ -90,11 +84,11 @@ Suppose we want to add a contact with the following information:
 
 We can enter the command `add John Doe --phone 88463679 --tag job : teacher` and press enter.
 
-![AddExample3.png](images/AddExample3.png)
+![AddExample3.png](images/AddExample2.png)
 
 We can see that we have created a new contact John Doe.
 
-To understand more about how to interpret the command formats, refer to [Command Format Information](#command-format-information)
+To understand more about how to interpret the command formats, refer to [Command Format Information](#command-format-information).
 
 Refer to the [Command List](#commands) below for details of each command, or the [Commands Summary](#commands-summary) section for a quick summary of all commands and their formats.
 
@@ -105,7 +99,7 @@ Refer to the [Command List](#commands) below for details of each command, or the
 
 ## Command Format Information
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user. They can contain spaces and special characters (except `index`, which expects a single positive integer). <br>
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. They can contain spaces and special characters (except `INDEX`, which expects a single positive integer). <br>
   e.g. in `add NAME`, `NAME` is a parameter which can be used as `add John Doe`.
 
 * Parameters in `[square brackets]` are optional.<br>
@@ -113,7 +107,7 @@ Refer to the [Command List](#commands) below for details of each command, or the
 
 * The Parameter `INDEX` refers to the number on the left side of the address book.
     * For example, the delete command has the format `delete INDEX`. If we type `delete 4`, ScamBook will delete David Li's entry in the below example:
-      ![AddExample3.png](images/AddExample3.png)
+      ![DeleteExample.png](images/DeleteExample.png)
 
 * Parameters with `…`​ after them can be used multiple times (including zero times).<br>
   e.g. `[--tag NAME:VALUE]…​` can be used as ` ` (i.e. 0 times), `--tag school:NUS`, `--tag school:NUS --tag salary:10000` etc.
@@ -126,9 +120,6 @@ Refer to the [Command List](#commands) below for details of each command, or the
 * Optional parameters can be in any order.<br>
   e.g. if the command specifies `[--phone PHONE] [--email EMAIL]`, `--email john@example.com --phone 91842739` is also acceptable.
 
-
-
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br> e.g. if the command input is `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
@@ -185,7 +176,7 @@ Format: `add NAME [--phone PHONE] [--email EMAIL] [--tag TAGNAME:TAGVALUE]...`
 
 Examples:
 * `add John Doe --phone 98765432 --email johnd@example.com --tag address:John street, block 123, #01-01`
-* `add Besty Croew --tag income:$100000 --tag bank:OCBC`
+* `add Besty Crower --tag income:$100000 --tag bank:OCBC`
 
 
 <br>
@@ -225,8 +216,6 @@ Examples:
 
 ### Tagging a person : `tag`
 
-<!-- TODO: add visuals -->
-
 A tag is a name-value pair that allows the user to record any arbitrary information so desired about a profile. This is achieved by this command, which modifies (add, edit or delete) the tags of an existing person in the ScamBook. In the image below of an example profile in the app, each blue box represents a tag-value pair capturing some useful information about the person.
 
 
@@ -242,9 +231,9 @@ Format: `tag INDEX [--add NAME:VALUE]... [--edit NAME:VALUE]... [--delete TAGNAM
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided, if not, nothing will happen upon execution (and success message will be displayed).
-* Optional fields beginning with `--add` represents tags to be added to the person. The tag name must NOT already exist.
-* Optional fields beginning with `--edit` represents tags to be modified of the person. The tag with the corresponding name must already exist.
-* Optional fields beginning with `--delete` represents tags to be deleted. The tag with the corresponding name must already exist.
+* Optional fields beginning with `--add` represent tags to be added to the person. The tag name must NOT already exist.
+* Optional fields beginning with `--edit` represent tags to be modified of the person. The tag with the corresponding name must already exist.
+* Optional fields beginning with `--delete` represent tags to be deleted. The tag with the corresponding name must already exist.
 
 <box type="warning" seamless>
 If the same tag name appears across multiple optional fields, behaviour is undefined. 2 tag names are considered equivalent if they are exactly equal character for character after removing leading and trailing whitespace.
@@ -333,7 +322,7 @@ Sets the status of a specific person. We currently support 4 common statuses, ea
 
 ![Example screenshot of status commands](images/status_command.png)
 
-In the above image, the people have the status of no status, `target`, `scam`, `ignore` and  respectively.
+In the above image, the people have the status of no status, `target`, `scam`, and `ignore`  respectively.
 
 * `status_command` should be replaced by either one of `clearstatus`, `target`, `scam`, or `ignore`.
 * Sets the status of the person at the specified `INDEX`.
@@ -457,8 +446,8 @@ and press enter. This will launch the application.
 
 On a Mac, if the option to open a terminal at the folder does not exist, refer to [this video guide](https://www.youtube.com/watch?v=wsI4Iast978) to enable the option.
 
-**Q**: When I opened ScamBook, my previous session's changes weren't saved. Why?
-**A**: If ScamBook is in a write-protected folder, the program cannot save your data. Try checking your folder's properties, or moving it to another location.
+**Q**: When I opened ScamBook, my previous session's changes weren't saved. Why? <br>
+**A**: If ScamBook is in a write-protected folder, the program cannot save your data. Try checking your folder's properties, or moving ScamBook to another location.
 
 ### Miscellaneous
 
@@ -479,16 +468,6 @@ repository](https://github.com/AY2526S2-CS2103T-T16-1/tp/issues).
 4. A scammer might have different personas when operating, such as pretending to be personnel from different banks. A possible future direction is to allow users to create multiple sets of ScamBooks, each with their own separate details, so every distinct persona can have its own list of contacts.
 
 5. Another significant area for future implementation is better integer parsing. Currently, tag values are parsed as is, so values such as `$100000` and `$200,000` are not recognised as numbers. This feature will allow more flexible interpretation of numbers, allowing the `sort` command to work on tags such as `savings: $1,000,000`.
-
---------------------------------------------------------------------------------------------------------------------
-
-## FAQ
-
-### Troubleshooting
-**Q:** I encounter an error when I double-click on the `.jar` file to run the application.<br>
-**A:** Open a terminal window at the location of the application. This can be done by right-clicking on the file explorer, as shown in the image below, then clicking on the button `Open in Terminal`. (The image is for Windows, other operating systems have a similar feature). Type the following command: `java -jar <name of the jar file>`. In the example of the image below, this would be `java -jar ScamBook-v1.4.jar`.
-
-![Example screenshot in Windows of how to open terminal](images/HowToOpenTerminal.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
