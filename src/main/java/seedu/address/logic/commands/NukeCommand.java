@@ -4,12 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
