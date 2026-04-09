@@ -56,6 +56,9 @@ public class EmailTest {
         helperAssertThrows("peterjack@example.com."); // domain name ends with a period
         helperAssertThrows("peterjack@-example.com"); // domain name starts with a hyphen
         helperAssertThrows("peterjack@example.com-"); // domain name ends with a hyphen
+
+        helperAssertThrows("peterjack@example-.com"); // domain label ends with a hyphen
+        helperAssertThrows(".peterjack@example.com"); // local part starts with a period
         helperAssertThrows("a@bc"); // minimal
         helperAssertThrows("test@localhost"); // alphabets only
         helperAssertThrows("(@)@example.com"); // special characters in local part without quotes
@@ -69,6 +72,9 @@ public class EmailTest {
         assertTrue(Email.isValidEmail("PeterJack-1190@example.com")); // hyphen in local part
         assertTrue(Email.isValidEmail("PeterJack-1190@127.0.0.1")); // IP address as domain name
         assertTrue(Email.isValidEmail("a1+be.d@example1.com")); // mixture of alphanumeric and special characters
+        assertTrue(Email.isValidEmail("o'hara+dev-team@example-domain.com")); // apostrophe, plus and hyphens
+        assertTrue(Email.isValidEmail("customer/department=shipping@example-domain.com")); // slash and equals
+        assertTrue(Email.isValidEmail("mailbox%ops@example-domain.co.uk")); // percent and subdomains
         assertTrue(Email.isValidEmail("peter_jack@very-very-very-long-example.com")); // long domain name
         assertTrue(Email.isValidEmail("if.you.dream.it_you.can.do.it@example.com")); // long local part
         assertTrue(Email.isValidEmail("e1234567@u.nus.edu")); // more than one period in domain
