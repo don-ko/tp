@@ -22,7 +22,7 @@ public interface Model {
     /**
      * Sets the model to show the list of all persons.
      */
-    public void showAllPersons();
+    void showAllPersons();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

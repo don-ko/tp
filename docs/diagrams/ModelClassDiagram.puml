@@ -55,5 +55,6 @@ TagList --> "*" Tag
 
 Name -[hidden]right-> Phone
 
-ModelManager --> "~* filtered" Person
+ModelManager --> "0..1 selected" Person
+ModelManager --> "~* filtered and/or sorted" Person
 @enduml

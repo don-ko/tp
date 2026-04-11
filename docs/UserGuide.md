@@ -90,9 +90,7 @@ We can enter the command `add John Doe --phone 88463679 --tag job:teacher` and p
 
 We can see that we have created a new contact John Doe.
 
-To understand more about how to interpret the command formats, refer to [Command Format Information](#command-format-information).
-
-Refer to the [Command List](#commands) below for details of each command, or the [Commands Summary](#commands-summary) section for a quick summary of all commands and their formats.
+To understand more about how to interpret the command formats, refer to [Command Format Information](#command-format-information). Refer to the [Command List](#commands) below for details of each command, or the [Commands Summary](#commands-summary) section for a quick summary of all commands and their formats. The [Constraints on input values](#constraints-on-input-values) section gives more details on the constraints of input values for each parameter.
 
 <box type="tip" seamless>
 <b>Tip:</b> Use the UP and DOWN arrow keys to navigate past command history.
@@ -100,8 +98,6 @@ Refer to the [Command List](#commands) below for details of each command, or the
 
 --------------------------------------------------------------------------------------------------------------------
 
-<!-- Disclaimer for command format, applicable to all commands -->
-<box type="info" seamless>
 
 ## Command Format Information
 
@@ -119,8 +115,8 @@ Refer to the [Command List](#commands) below for details of each command, or the
 
 * Parameters with `…`​ after them can be used multiple times (including zero times).<br>
   e.g. `[--tag NAME:VALUE]…​` can be used as ` ` (i.e. 0 times), `--tag school:NUS`, `--tag school:NUS --tag salary:10000` etc.
-    * For each parameter that can be used multiple times, each command should contain up to 100 of such parameters.
-    * In the above example of `[--tag NAME:VALUE]…​`, the command should have up to 100 occurrences of `--tag`. Above this, the behaviour is undefined.
+    * For each parameter that can be used multiple times, each command should contain up to 100 of such parameters. Above this, the command will be rejected.
+    * In the above example of `[--tag NAME:VALUE]…​`, the command should have up to 100 occurrences of `--tag`.
 
 * Mandatory parameters must come before optional parameters.<br>
   e.g. if the command specifies `NAME [--phone PHONE]`, `--phone 88091246 John` is not acceptable.
@@ -129,9 +125,15 @@ Refer to the [Command List](#commands) below for details of each command, or the
   e.g. if the command specifies `[--phone PHONE] [--email EMAIL]`, `--email john@example.com --phone 91842739` is also acceptable.
 
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-
+<box type="warning" seamless>
+If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
+
+<box type="warning" seamless>
+Users are advised against using <code>--</code> for input values. While the parser can occasionally pick up such usage and correctly report an error, this is not guaranteed all the time, which might result in unexpected execution results.
+</box>
+
+
 
 <!--
 Command User guide format:
@@ -184,7 +186,8 @@ Adds a person to the ScamBook.
 Format: `add NAME [--phone PHONE] [--email EMAIL] [--tag TAGNAME:TAGVALUE]...`
 
 * Duplicate names are allowed, since it is likely one might encounter multiple people with the same (first) names. Hence, ScamBook supports having multiple people with the same name, and no duplicate checking is performed.
-* If multiple tag name-value pairs have the same tag name (see section on [Tag](#tagging-a-person--tag) below regarding tag name equality), the last value will be used.
+* Phones and emails are optional, to cater for instances when the user does not have information about them at the point of adding the contact. No duplicate checking is performed on these fields as well, since these can be shared across users (e.g. home phone numbers, shared email addresses).
+* If multiple tag name-value pairs have the same tag name (see section on [Tag](#tagging-a-person-tag) below regarding tag name equality), the last value will be used.
 
 <box type="tip" seamless>
 <b>Tip:</b> A person can have any number of tags (including 0).
@@ -199,7 +202,7 @@ Examples:
 
 ### Editing a person : `edit`
 
-Edits an existing person's name, phone number or email. For editing tags, see the [Tag Command](#tagging-a-person--tag).
+Edits an existing person's name, phone number or email. For editing tags, see the [Tag Command](#tagging-a-person-tag).
 
 Format: `edit INDEX [--name NAME] [--phone PHONE] [--email EMAIL]`
 
@@ -232,7 +235,10 @@ Examples:
 
 ### Tagging a person : `tag`
 
-A tag is a name-value pair that allows the user to record any arbitrary information so desired about a profile. This is achieved by this command, which modifies (add, edit or delete) the tags of an existing person in the ScamBook. In the image below of an example profile in the app, each blue box represents a tag-value pair capturing some useful information about the person.
+A tag is a name-value pair that allows the user to record any arbitrary information so desired about a profile. This is achieved by this command, which modifies (add, edit or delete) the tags of an existing person in the ScamBook. Two tag names are considered equal if they are exactly equal character for character after removing leading and trailing whitespace.
+
+
+In the image below of an example profile in the app, each blue box represents a tag-value pair capturing some useful information about the person.
 
 
 <center><img src="images/example_profile_with_tags.png" alt="Example profile with tags" width="400"/></center>
@@ -241,18 +247,14 @@ A tag is a name-value pair that allows the user to record any arbitrary informat
 
 Format: `tag INDEX [--add NAME:VALUE]... [--edit NAME:VALUE]... [--delete TAGNAME]...​`
 
-<box type="warning" seamless>
-<b>Caution:</b> <code>NAME</code>, <code>VALUE</code>, <code>TAGNAME</code> must NOT contain colons (<code>:</code>). Otherwise, an error will be displayed. Users are advised not to use <code>--</code> as part of the tag name or tag value, as this may lead to undefined behaviour.
-</box>
-
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided, if not, nothing will happen upon execution (and success message will be displayed).
-* Optional fields beginning with `--add` represent tags to be added to the person. The tag name must NOT already exist.
+* At least one of the optional fields must be provided, if not, the success message will be displayed with no visible changes. There will also be a disk write to save the (unchanged) ScamBook data. Refer to the [Saving the data](#saving-the-data) section for more details.
+* Optional fields beginning with `--add` represent tags to be added to the person. The tag name must not already exist.
 * Optional fields beginning with `--edit` represent tags to be modified of the person. The tag with the corresponding name must already exist.
 * Optional fields beginning with `--delete` represent tags to be deleted. The tag with the corresponding name must already exist.
 
 <box type="warning" seamless>
-If the same tag name appears across multiple optional fields, behaviour is undefined. 2 tag names are considered equivalent if they are exactly equal character for character after removing leading and trailing whitespace.
+Users are strongly advised against using the same tag name across multiple optional fields, as behaviour could be unexpected. In particular, all <code>--add</code> tags are added first, then all <code>--edit</code> tags are edited, then all <code>--delete</code> are deleted.
 </box>
 
 Examples:
@@ -277,7 +279,7 @@ Format: `filter [--name NAME]... [--phone PHONE]... [--email EMAIL]... [--status
   e.g. `--name John --name Jane` matches persons whose name contains `John` or `Jane`.
 - `NAME`, `EMAIL`, and `PHONE` conditions require case-insensitive partial match.
 - `STATUS` must be one of `NONE`, `TARGET`, `SCAM`, or `IGNORE` (case-insensitive).
-- `--tag TAGNAME` checks whether a person has a tag with that name.
+- `--tag TAGNAME` checks whether a person has a tag with that name. `TAGNAME` must be a valid tag name, according to [this](#tag-constraints).
 - `--tag TAGNAME:TAGVALUE` checks whether a person has a tag with that name whose value contains `TAGVALUE`.
 - `TAGNAME` requires the exact tag name (case-insensitive), while `TAGVALUE` only requires partial match (case-insensitive).
 - With repeated `--tag` filters with the same tag name, profiles match any of the specified values.
@@ -309,8 +311,8 @@ The filter command affects the indices of the contacts. When using commands that
 </box>
 
 <box type="tip" seamless>
-When after running another command (e.g. <code>edit</code>),
-if the modified person(s) still fulfill the most recent filter applied, the displayed list will remain as the filtered list. Otherwise, the displayed list will revert to show all persons.
+After running another command (e.g. <code>add</code>),
+if the new/edited person still fulfills the most recent filter applied, the displayed list will remain as the filtered list (with the added person, if any). Otherwise, the displayed list will revert to show all persons.
 </box>
 
 
@@ -331,6 +333,10 @@ Examples:
 * `sort` Sorts by name in ascending order.
 * `sort phone --desc --number` Sorts by phone number in descending numeric order.
 * `sort income --alpha` Sorts by the `income` tag alphabetically.
+
+<box type="tip" seamless>
+The sorting persists even if multiple commands are run afterwards. For example, if a new person is added, he/she will be inserted into the correct position according to the current sorting order, which might not be at the end. Similarly, editing a person's information or tags may also change his/her positon in the list.
+</box>
 
 
 <br>
@@ -363,7 +369,7 @@ Examples:
 
 ### Listing all persons : `list`
 
-Shows a list of ALL persons in the ScamBook. This command can be used after `sort` or `filter` to revert ScamBook to its original state.
+Shows a list of ALL persons in the ScamBook, in their original creation order. This command can be used after `sort` or `filter` to revert ScamBook to its original state.
 
 Format: `list`
 
@@ -423,6 +429,10 @@ Format: `exit`
 
 ### Constraints on input values
 
+
+#### Index Constraints
+All `INDEX` parameters refer to the displayed index as shown in the current displayed list.
+
 #### Name Constraints
 
 Names can contain any alphanumeric characters, spaces, and the following special characters <code>,.()\`'/\-</code>.
@@ -437,12 +447,12 @@ Phones should be a number between 3 and 20 digits in length. It should not conta
 Emails should follow the format `local-part@domain` (e.g. `john.doe@example.com`), with the following constraints:
 
 1. Email contains exactly one `@`.
-1. `local-part` and `domain` should each contain at least one character.
-1. `local-part` should contain alphanumeric characters and/or the special characters <code>!#$%&'*+/=?^_`{|}~.-</code>.
-1. `local-part` should not start or end with a dot (`.`) and should not have consecutive dots.
-1. `local-part` should not contain spaces.
-1. `domain` should contain alphanumeric characters, dots (`.`) and/or hyphens (`-`).
-1. `domain` should be a valid target hostname such as `gmail.com`, `example.com`.
+2. `local-part` and `domain` should each contain at least one character.
+3. `local-part` should contain alphanumeric characters and/or the special characters <code>!#$%&'*+/=?^_`{|}~.-</code>.
+4. `local-part` should not start or end with a dot (`.`) and should not have consecutive dots.
+5. `local-part` should not contain spaces.
+6. `domain` should contain alphanumeric characters, dots (`.`) and/or hyphens (`-`).
+7. `domain` should be a valid target hostname such as `gmail.com`, `example.com`.
 
 ScamBook accepts a broader set of [RFC 5322 standards-compliant email addresses](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1).
 
@@ -451,13 +461,22 @@ ScamBook accepts a broader set of [RFC 5322 standards-compliant email addresses]
 </box>
 
 
+#### Tag Constraints
+
+1. Tag names and values must be non-empty (i.e. it must not consist of only whitespace characters).
+2. Tag names and values must not contain colons (`:`), as they are used to separate names and values.
+3. Tag names and values must not exceed 60 characters in length (excluding leading and trailing whitespace). This is to ensure that the display of tags in the GUI remains neat and tidy.
+4. Tag names must not equal, case-sensitive, any of `name`, `email`, `phone` as these are reserved field names.
+5. Tag names and values can contain any other characters, if they satisfy the above two constraints.
+
+
 <br>
 
 ---------------------------------------------------
 
 ### Saving the data
 
-ScamBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+ScamBook data are saved in the hard disk automatically after the successful execution of any command. There is no need to save manually.
 
 
 <br>
