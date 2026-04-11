@@ -14,7 +14,7 @@ public class Name {
             "Names should only contain alphanumeric characters, spaces, and the characters ,.()`'/\\-"
             + "\nAlso, it should not be blank.";
 
-    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9 ,.()`'/\\-]+$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9 ,.()`'/\\\\-]+$";
 
     public final String fullName;
 
