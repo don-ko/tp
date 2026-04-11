@@ -147,6 +147,7 @@ The `Model` component,
 * stores the ScamBook data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'to be displayed' `Person` objects (e.g., results of a search query) as a separate _filtered and/or sorted_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores one currently selected `Person`, so autoscroll will display the corresponding person after a command. While the class diagram displays this as a `Person` object, it is actually implemented as `ObjectProperty<Person>` for UI reasons.
+* stores one `Predicate` representing the current filter applied to the master list of all `Person` objects to get the currently displayed list.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
