@@ -186,9 +186,9 @@ public class FilterCommand extends Command {
     }
 
     private Predicate<Person> buildEmailPredicate(List<String> emailFilters) {
-        boolean includesEmptyEmail = emailFilters.stream().anyMatch(this::isEmptyEmailKeyword);
+        boolean includesEmptyEmail = emailFilters.stream().anyMatch(this::isEmptyFieldKeyword);
         List<String> emailSubstrings = emailFilters.stream()
-                .filter(filter -> !isEmptyEmailKeyword(filter))
+                .filter(filter -> !isEmptyFieldKeyword(filter))
                 .collect(Collectors.toList());
 
         Predicate<Person> emailPredicate = null;
@@ -204,10 +204,6 @@ public class FilterCommand extends Command {
     }
 
     private boolean isEmptyFieldKeyword(String value) {
-        return EMPTY_FIELD_KEYWORD.equalsIgnoreCase(value.trim());
-    }
-
-    private boolean isEmptyEmailKeyword(String value) {
         return EMPTY_FIELD_KEYWORD.equals(value.trim());
     }
 
