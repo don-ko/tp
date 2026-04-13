@@ -16,11 +16,13 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
+import seedu.address.testutil.PersonBuilder;
 
 public class SortCommandTest {
 
@@ -142,5 +144,56 @@ public class SortCommandTest {
     @Test
     public void constructor_nullSpec_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new SortCommand(null));
+    }
+
+    @Test
+    public void execute_numericSort_leadingZerosTieBreaker() throws CommandException {
+        AddressBook addressBook = new AddressBook();
+        Person personA = new PersonBuilder().withName("A").withPhone("01234").build();
+        Person personB = new PersonBuilder().withName("B").withPhone("1234").build();
+        addressBook.addPerson(personA);
+        addressBook.addPerson(personB);
+        Model model = new ModelManager(addressBook, new UserPrefs());
+
+        SortCommand.SortSpec spec = new SortCommand.SortSpec(
+                SortCommand.SortTargetType.PHONE,
+                null,
+                SortCommand.SortOrder.ASC,
+                SortCommand.SortMode.NUMBER
+        );
+        SortCommand command = new SortCommand(spec);
+        command.execute(model);
+
+        // "01234" comes before "1234" alphabetically when parsed numbers are equal
+        assertEquals(Arrays.asList(personA, personB), model.getFilteredPersonList());
+
+        // Test DESC order
+        spec = new SortCommand.SortSpec(
+                SortCommand.SortTargetType.PHONE,
+                null,
+                SortCommand.SortOrder.DESC,
+                SortCommand.SortMode.NUMBER
+        );
+        command = new SortCommand(spec);
+        command.execute(model);
+
+        // "1234" comes before "01234" alphabetically when descending
+        assertEquals(Arrays.asList(personB, personA), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_sortUnknownTag_throwsCommandException() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        String unknownTag = "nonExistentTag";
+        SortCommand.SortSpec spec = new SortCommand.SortSpec(
+                SortCommand.SortTargetType.TAG,
+                unknownTag,
+                SortCommand.SortOrder.ASC,
+                SortCommand.SortMode.ALPHA
+        );
+        SortCommand command = new SortCommand(spec);
+
+        String expectedMessage = String.format(SortCommand.MESSAGE_UNKNOWN_TAG, unknownTag);
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(model));
     }
 }
