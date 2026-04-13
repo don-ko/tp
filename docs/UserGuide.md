@@ -286,8 +286,8 @@ Format: `filter [--name NAME]... [--phone PHONE]... [--email EMAIL]... [--status
   e.g. `--name John --name Jane` matches persons whose name contains `John` or `Jane`.
 - `NAME`, `EMAIL`, and `PHONE` conditions require case-insensitive partial match.
 - `--phone NONE` or `--email NONE` (exact fully uppercase word) matches persons with no phone/email.
-- `--email none` (and other case variations apart from `NONE`) matches persons whose email address contains `none`
-  e.g. `--email NoNe` matches a person with email `anone@gmail.com`
+- `--email none` (and other case variations apart from `NONE`) performs regular email matching, and matches persons whose email address contains `none` (case-insensitive)
+  e.g. `--email NoNe` matches a person with email `anOnE@gmail.com`
 - `STATUS` must be one of `none`, `target`, `scam`, or `ignore` (case-insensitive).
 - `--tag TAGNAME` checks whether a person has a tag with that name. `TAGNAME` must be a valid tag name, according to [this](#tag-constraints).
 - `--tag TAGNAME:TAGVALUE` checks whether a person has a tag with that name whose value contains `TAGVALUE`.
