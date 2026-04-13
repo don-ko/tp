@@ -285,7 +285,9 @@ Format: `filter [--name NAME]... [--phone PHONE]... [--email EMAIL]... [--status
 - With repeated `--name`, `--phone`, `--email`, or `--status`, profiles match any of the specified values.
   e.g. `--name John --name Jane` matches persons whose name contains `John` or `Jane`.
 - `NAME`, `EMAIL`, and `PHONE` conditions require case-insensitive partial match.
-- `--phone NONE` matches persons with no phone field, and `--email NONE` matches persons with no email field.
+- `--phone NONE` (case-insensitive) matches persons with no phone field.
+- `--email NONE` (exact fully uppercase word) matches persons with no email field.
+- `--email none` (case-insensitive) matches persons whose email contains the substring `none`.
 - `STATUS` must be one of `none`, `target`, `scam`, or `ignore` (case-insensitive).
 - `--tag TAGNAME` checks whether a person has a tag with that name. `TAGNAME` must be a valid tag name, according to [this](#tag-constraints).
 - `--tag TAGNAME:TAGVALUE` checks whether a person has a tag with that name whose value contains `TAGVALUE`.
@@ -480,7 +482,7 @@ Emails should follow the format `local-part@domain` (e.g. `john.doe@example.com`
 ScamBook accepts a broader set of [RFC 5322 standards-compliant email addresses](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1).
 
 <box type="tip" seamless>
-<b>Tip:</b> <code>filter --email</code> accepts any non-empty substring for matching (except the reserved keyword <code>NONE</code>, which matches missing email) and does not require a full valid email format.
+<b>Tip:</b> <code>filter --email</code> accepts any non-empty substring for matching (except the reserved keyword <code>NONE</code> (exact fully uppercase word), which matches missing email) and does not require a full valid email format.
 </box>
 
 
