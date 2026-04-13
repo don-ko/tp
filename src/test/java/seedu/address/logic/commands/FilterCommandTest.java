@@ -39,6 +39,7 @@ import seedu.address.model.person.predicates.PhoneContainsPredicate;
 import seedu.address.model.person.predicates.StatusEqualsPredicate;
 import seedu.address.model.person.predicates.TagContainsPredicate;
 import seedu.address.model.tag.TagFilter;
+import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for FilterCommand.
@@ -374,6 +375,33 @@ public class FilterCommandTest {
 
         expectedModel.updateFilteredPersonList(person -> !person.hasEmail());
         assertFilterResult(command, model, List.of(SILENT));
+    }
+
+    @Test
+    public void execute_emailNoneLowercase_treatedAsSubstring() {
+        model.addPerson(SILENT);
+        expectedModel.addPerson(SILENT);
+
+        FilterCommand command = createFilterCommand(singleParamFilter(FilterType.EMAIL, "none"),
+                Collections.emptyList());
+
+        expectedModel.updateFilteredPersonList(new EmailContainsPredicate(List.of("none")));
+        assertFilterResult(command, model, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_emailNoneLowercase_canMatchLiteralNoneSubstring() {
+        var noneEmailPerson = new PersonBuilder().withName("Nora None")
+                .withEmail("none@example.com")
+                .build();
+        model.addPerson(noneEmailPerson);
+        expectedModel.addPerson(noneEmailPerson);
+
+        FilterCommand command = createFilterCommand(singleParamFilter(FilterType.EMAIL, "none"),
+                Collections.emptyList());
+
+        expectedModel.updateFilteredPersonList(new EmailContainsPredicate(List.of("none")));
+        assertFilterResult(command, model, List.of(noneEmailPerson));
     }
 
     @Test
